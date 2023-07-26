@@ -1,0 +1,19 @@
+{
+  "name": "dashboard-table",
+  "version": "1.0.0",
+  "description": "pet project React+MongoDB+Express",
+  "author": "Michael Leliakov",
+  "license": "ISC",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently --names 'Node,Vite' -c 'green,blue' 'npm run dev -w backend' 'npm run dev -w frontend'",
+    "start": "npm run build -w frontend && npm run start -w backend"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react-swc": "^3.2.0",
+    "concurrently": "^7.6.0"
+  }
+}
