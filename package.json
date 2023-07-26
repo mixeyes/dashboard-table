@@ -10,10 +10,17 @@
   ],
   "scripts": {
     "dev": "concurrently --names 'Node,Vite' -c 'green,blue' 'npm run dev -w backend' 'npm run dev -w frontend'",
-    "start": "npm run build -w frontend && npm run start -w backend"
+    "start": "npm run build -w frontend && npm run start -w backend",
+    "lint": "eslint",
+    "format": "prettier ./**/*.{html,js,json,md,scss}",
+    "format:list": "npm run format -- --list-different",
+    "format:write": "npm run format -- --write"
   },
   "devDependencies": {
     "@vitejs/plugin-react-swc": "^3.2.0",
-    "concurrently": "^7.6.0"
+    "babel-eslint": "^10.1.0",
+    "concurrently": "^7.6.0",
+    "eslint": "^8.45.0",
+    "prettier": "^3.0.0"
   }
 }

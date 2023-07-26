@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const path = require('path')
+const path = require('path');
 const PORT = process.env.PORT || 4000;
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -35,17 +35,15 @@ app.use('/api/tags', require('../routes/tagRoutes'));
 // comment routes
 app.use('/api/articles', require('../routes/commentRoutes'));
 
-
-
 mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB');
-    app.listen(PORT, () => {
-        console.log(`Server running on port ${PORT}`);
-    });
+  console.log('Connected to MongoDB');
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
 
-mongoose.connection.on('error', err => {
-    console.log(err);
-})
+mongoose.connection.on('error', (err) => {
+  console.log(err);
+});
 
 module.exports = app;
