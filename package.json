@@ -11,16 +11,24 @@
   "scripts": {
     "dev": "concurrently --names 'Node,Vite' -c 'green,blue' 'npm run dev -w backend' 'npm run dev -w frontend'",
     "start": "npm run build -w frontend && npm run start -w backend",
-    "lint": "eslint",
+    "lint": "eslint frontend/ backend/",
     "format": "prettier ./**/*.{html,js,json,md,scss}",
     "format:list": "npm run format -- --list-different",
     "format:write": "npm run format -- --write"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.22.9",
     "@vitejs/plugin-react-swc": "^3.2.0",
-    "babel-eslint": "^10.1.0",
     "concurrently": "^7.6.0",
     "eslint": "^8.45.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-babel": "^5.3.1",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "prettier": "^3.0.0"
   }
 }

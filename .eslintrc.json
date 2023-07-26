@@ -1,7 +1,13 @@
 {
-  "extends": ["airbnb", "prettier"],
-  "plugins": ["babel", "prettier"],
-  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "prettier",
+    "airbnb",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "plugins": ["prettier", "react", "react-hooks"],
   "rules": {
     "prettier/prettier": ["error"],
     "import/no-unresolved": 0,
@@ -20,7 +26,15 @@
     ],
     "no-use-before-define": ["error", { "functions": false }]
   },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
   "env": {
-    "browser": true
+    "browser": true,
+    "es2020": true
   }
 }
