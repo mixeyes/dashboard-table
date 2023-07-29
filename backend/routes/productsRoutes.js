@@ -7,4 +7,6 @@ router.get('/', productController.listProducts);
 
 router.get('/filters', productController.listFilters);
 
+router.put('/:id',productController.updateProduct);
+
 module.exports = router;

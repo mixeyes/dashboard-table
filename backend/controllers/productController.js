@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
 
 const listProducts = asyncHandler(async (req, res) => {
-  let limit = 20;
+  // let limit = 20;
   let offset = 0;
   const query = {};
   if (req.query.limit) {
@@ -30,9 +30,9 @@ const listProducts = asyncHandler(async (req, res) => {
   }
 
   const filteredProducts = await Product.find(query)
-    .limit(Number(limit))
+    // .limit(Number(limit))
     .skip(Number(offset))
-    .sort({ createdAt: 'desc' })
+    // .sort({ createdAt: 'desc' })
     .exec();
 
   const productsCount = await Product.count(query);
@@ -67,7 +67,42 @@ const listFilters = asyncHandler(async (req, res) => {
   });
 });
 
+const updateProduct = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const {product} = req.body;
+  // let limit = 20;
+  let offset = 0;
+  const query = {};
+
+  const target = await Product.findById(id).exec();
+  Object.keys(product).forEach(field => {
+    if (field in target) {
+      target[field] = product[field];
+    }
+  });
+
+  if(!target.count) {
+    target.inStock = false;
+  }
+
+  await target.save();
+  
+  const products = await Product.find(query)
+    // .limit(Number(limit))
+    .skip(Number(offset))
+    // .sort({ createdAt: 'desc' })
+    .exec();
+
+  const productsCount = await Product.count(query);
+
+  return res.status(200).json({
+    products,
+    productsCount,
+  });
+});
+
 module.exports = {
   listProducts,
   listFilters,
+  updateProduct,
 };

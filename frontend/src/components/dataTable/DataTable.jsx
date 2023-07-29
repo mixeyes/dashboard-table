@@ -10,10 +10,12 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { TableHeader } from './TableHeader';
 import { HeadRow } from './HeadRow';
-import { getProductList } from '../../services';
+import { getProductList, updateProduct } from '../../services';
 import { createData, stableSort, getComparator } from '../../utils';
 import { ImageContainer } from '../ImageContainer';
 import { FilterContainer } from '../FilterContainer';
+import { Button } from '@mui/material';
+import { ChartContainer } from '../ChartContainer';
 
 export const DataTable = () => {
   const [rows, setRows] = useState([]);
@@ -30,6 +32,7 @@ export const DataTable = () => {
   const [tableSize, setTableSize] = useState({ width: 0, height: 0 });
   const [isFilterDisplayed, setIsFilterDisplayed] = useState(false);
   const [filters, setFilters] = useState(null);
+
   const tableRef = useRef(null);
   const headRef = useRef(null);
 
@@ -46,6 +49,15 @@ export const DataTable = () => {
     };
     fetchData();
   }, [filters]);
+
+  useEffect(() => {
+    if (tableRef && headRef) {
+      setTableSize({
+        width: headRef.current?.offsetWidth || 0,
+        height: tableRef.current?.offsetHeight || 0,
+      });
+    }
+  }, [rows]);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -122,9 +134,21 @@ export const DataTable = () => {
     setIsFilterDisplayed(!isFilterDisplayed);
   };
 
+  const handleBuy = async (event, id) => {
+    event.stopPropagation();
+    const product = rows.find((item) => item.id === id);
+    product.count -= 1;
+    if (!product.count) {
+      product.inStock = false;
+    }
+    const newProd = await updateProduct(product);
+    setRows(() => newProd.products.map((item) => createData(item)));
+  };
+
   return (
     <main>
       <Box sx={{ width: '100%', paddingTop: '3vw' }}>
+        <ChartContainer data={rows} />
         <Paper sx={{ width: '100vw' }}>
           <TableHeader headRef={headRef} openFilters={handleOpenFilter} />
           <Paper
@@ -194,12 +218,23 @@ export const DataTable = () => {
                         </TableCell>
                         <TableCell align="right">{row.company}</TableCell>
                         <TableCell align="right">{row.color}</TableCell>
-                        <TableCell align="right">{row.inStock}</TableCell>
+                        <TableCell align="right">
+                          {row.inStock ? 'In stock' : 'Out of stock'}
+                        </TableCell>
                         <TableCell align="right">{row.price}</TableCell>
                         <TableCell align="right">{row.count}</TableCell>
                         <TableCell align="right">{row.reviews}</TableCell>
                         <TableCell align="right">{row.location}</TableCell>
-                        <TableCell align="right"></TableCell>
+                        <TableCell align="right">
+                          {
+                            <Button
+                              onClick={(e) => handleBuy(e, row.id)}
+                              disabled={!row.inStock}
+                            >
+                              buy
+                            </Button>
+                          }
+                        </TableCell>
                       </TableRow>
                     );
                   })}
