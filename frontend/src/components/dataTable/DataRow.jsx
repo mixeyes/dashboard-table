@@ -3,7 +3,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import { Button } from '@mui/material';
-import { string, shape, number, boolean, func } from 'prop-types';
+import { string, shape, number, bool, func } from 'prop-types';
 
 export const DataRow = ({
   row,
@@ -62,11 +62,13 @@ export const DataRow = ({
 };
 
 DataRow.propTypes = {
+  isItemSelected: bool,
+  labelId: string,
   row: shape({
     productName: string,
     company: string,
     color: string,
-    inStock: boolean,
+    inStock: bool,
     price: number,
     count: number,
     reviews: number,
@@ -77,7 +79,5 @@ DataRow.propTypes = {
   }).isRequired,
   checkRow: func.isRequired,
   openImg: func.isRequired,
-  isItemSelected: boolean,
-  labelId: string,
   handleBuy: func.isRequired,
 };

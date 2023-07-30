@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { PieChart } from '@mui/x-charts';
 import { useEffect, useState } from 'react';
-import { arrayOf, string, shape, node, boolean, func } from 'prop-types';
+import { arrayOf, string, shape, number, boolean } from 'prop-types';
 
 export const ChartContainer = ({ data = [] }) => {
   const [chartValues, setChartValues] = useState({ inStock: 0, outOfStock: 0 });

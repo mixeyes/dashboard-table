@@ -4,7 +4,7 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import { HeadRow } from './HeadRow';
 import { DataRow } from './DataRow';
-import { arrayOf, string, shape, node, boolean, func } from 'prop-types';
+import { arrayOf, string, shape, number,  bool, func, instanceOf } from 'prop-types';
 
 export const DataTable = ({
   rows,
@@ -52,7 +52,7 @@ export const DataTable = ({
     setSelected(newSelected);
   };
 
-  const isSelected = (id) => selected.indexOf(id) !== -1;
+  const isSelected = (id) => (selected.indexOf(id) !== -1);
 
   const handleClick = (event, url, id) => {
     event.stopPropagation();
@@ -113,7 +113,7 @@ DataTable.propTypes = {
       productName: string,
       company: string,
       color: string,
-      inStock: boolean,
+      inStock: bool,
       price: number,
       count: number,
       reviews: number,
@@ -124,7 +124,7 @@ DataTable.propTypes = {
     }),
   ),
   updateProduct: func,
-  tableRef: node,
+  tableRef: shape({ current: instanceOf(Element) }),
   tableWidth: string,
   order: string,
   orderBy: string,

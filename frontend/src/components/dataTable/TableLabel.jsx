@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { func, node } from 'prop-types';
+import { func, shape, instanceOf } from 'prop-types';
 
 export const TableLabel = ({ openFilters, headRef }) => (
   <Toolbar
@@ -36,4 +36,7 @@ export const TableLabel = ({ openFilters, headRef }) => (
   </Toolbar>
 );
 
-TableLabel.propTypes = { openFilters: func, headRef: node };
+TableLabel.propTypes = {
+  openFilters: func,
+  headRef: shape({ current: instanceOf(Element) }),
+};
