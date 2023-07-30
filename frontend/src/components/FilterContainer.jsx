@@ -22,8 +22,8 @@ export const FilterContainer = ({ filtersChange, width }) => {
       const index = checked[group].indexOf(item);
       if (index >= 0) {
         newChecked[group].splice(index, 1);
-        if(!newChecked[group].length){
-            delete newChecked[group];
+        if (!newChecked[group].length) {
+          delete newChecked[group];
         }
       } else {
         newChecked = { ...newChecked, [group]: [...newChecked[group], item] };
@@ -36,7 +36,7 @@ export const FilterContainer = ({ filtersChange, width }) => {
   };
 
   return (
-    <div style={{width}}>
+    <div style={{ width }}>
       {Object.keys(filters).map((fGroup) => {
         return (
           <div key={fGroup}>

@@ -3,7 +3,7 @@ import { PieChart } from '@mui/x-charts';
 import { useEffect, useState } from 'react';
 
 export const ChartContainer = ({ data = [] }) => {
-  const [chartValues, setChartValues] = useState({inStock: 0, outOfStock: 0});
+  const [chartValues, setChartValues] = useState({ inStock: 0, outOfStock: 0 });
 
   useEffect(() => {
     const values = data.reduce(
@@ -33,7 +33,7 @@ export const ChartContainer = ({ data = [] }) => {
               { id: 0, value: chartValues.inStock, label: 'In stock' },
               { id: 1, value: chartValues.outOfStock, label: 'Out of stock' },
             ],
-            arcLabel: (item) => `${(item.value / data.length)*100}%`,
+            arcLabel: (item) => `${(item.value / data.length) * 100}%`,
             arcLabelMinAngle: 15,
           },
         ]}

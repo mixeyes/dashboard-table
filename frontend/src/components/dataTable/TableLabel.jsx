@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
-export const TableHeader = React.forwardRef(({ openFilters, headRef }) => (
+export const TableLabel = ({ openFilters, headRef }) => (
   <Toolbar
     ref={headRef}
     sx={{
@@ -33,4 +33,4 @@ export const TableHeader = React.forwardRef(({ openFilters, headRef }) => (
       Filters
     </IconButton>
   </Toolbar>
-));
+);

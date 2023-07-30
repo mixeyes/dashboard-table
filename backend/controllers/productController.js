@@ -2,19 +2,17 @@ const asyncHandler = require('express-async-handler');
 const Product = require('../models/Product');
 
 const listProducts = asyncHandler(async (req, res) => {
-  // let limit = 20;
   let offset = 0;
   const query = {};
-  if (req.query.limit) {
-    limit = req.query.limit;
-  }
 
   if (req.query.offset) {
     offset = req.query.offset;
   }
 
   if (req.query.companies) {
-    const comQuery = req.query.companies.includes(',') ? { company: { $in: req.query.companies.split(',') } } : { company: req.query.companies }
+    const comQuery = req.query.companies.includes(',')
+      ? { company: { $in: req.query.companies.split(',') } }
+      : { company: req.query.companies };
     const products = await Product.find(comQuery).exec();
     if (products) {
       query.company = comQuery.company;
@@ -22,7 +20,9 @@ const listProducts = asyncHandler(async (req, res) => {
   }
 
   if (req.query.colors) {
-    const comQuery = req.query.colors.includes(',') ? { color: { $in: req.query.colors.split(',') } } : { color: req.query.colors }
+    const comQuery = req.query.colors.includes(',')
+      ? { color: { $in: req.query.colors.split(',') } }
+      : { color: req.query.colors };
     const products = await Product.find(comQuery).exec();
     if (products) {
       query.color = comQuery.color;
@@ -30,9 +30,7 @@ const listProducts = asyncHandler(async (req, res) => {
   }
 
   const filteredProducts = await Product.find(query)
-    // .limit(Number(limit))
     .skip(Number(offset))
-    // .sort({ createdAt: 'desc' })
     .exec();
 
   const productsCount = await Product.count(query);
@@ -69,29 +67,24 @@ const listFilters = asyncHandler(async (req, res) => {
 
 const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const {product} = req.body;
-  // let limit = 20;
-  let offset = 0;
+  const { product } = req.body;
+  const offset = 0;
   const query = {};
 
   const target = await Product.findById(id).exec();
-  Object.keys(product).forEach(field => {
+  Object.keys(product).forEach((field) => {
     if (field in target) {
       target[field] = product[field];
     }
   });
 
-  if(!target.count) {
+  if (!target.count) {
     target.inStock = false;
   }
 
   await target.save();
-  
-  const products = await Product.find(query)
-    // .limit(Number(limit))
-    .skip(Number(offset))
-    // .sort({ createdAt: 'desc' })
-    .exec();
+
+  const products = await Product.find(query).skip(Number(offset)).exec();
 
   const productsCount = await Product.count(query);
 

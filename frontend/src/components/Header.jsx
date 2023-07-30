@@ -61,7 +61,10 @@ export const Header = () => {
           >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/images/No-Image-Placeholder.svg" />
+                <Avatar
+                  alt="Remy Sharp"
+                  src="/images/No-Image-Placeholder.svg"
+                />
               </IconButton>
             </Tooltip>
             <Menu
@@ -91,4 +94,4 @@ export const Header = () => {
       </Container>
     </AppBar>
   );
-}
+};
