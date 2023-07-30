@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { PieChart } from '@mui/x-charts';
 import { useEffect, useState } from 'react';
+import { arrayOf, string, shape, node, boolean, func } from 'prop-types';
 
 export const ChartContainer = ({ data = [] }) => {
   const [chartValues, setChartValues] = useState({ inStock: 0, outOfStock: 0 });
@@ -42,4 +43,21 @@ export const ChartContainer = ({ data = [] }) => {
       />
     </Box>
   );
+};
+ChartContainer.propTypes = {
+  rows: arrayOf(
+    shape({
+      productName: string,
+      company: string,
+      color: string,
+      inStock: boolean,
+      price: number,
+      count: number,
+      reviews: number,
+      location: string,
+      productImg: string,
+      additional: string,
+      id: string,
+    }),
+  ),
 };

@@ -4,6 +4,7 @@ import TableBody from '@mui/material/TableBody';
 import TableContainer from '@mui/material/TableContainer';
 import { HeadRow } from './HeadRow';
 import { DataRow } from './DataRow';
+import { arrayOf, string, shape, node, boolean, func } from 'prop-types';
 
 export const DataTable = ({
   rows,
@@ -104,4 +105,28 @@ export const DataTable = ({
       </Table>
     </TableContainer>
   );
+};
+
+DataTable.propTypes = {
+  rows: arrayOf(
+    shape({
+      productName: string,
+      company: string,
+      color: string,
+      inStock: boolean,
+      price: number,
+      count: number,
+      reviews: number,
+      location: string,
+      productImg: string,
+      additional: string,
+      id: string,
+    }),
+  ),
+  updateProduct: func,
+  tableRef: node,
+  tableWidth: string,
+  order: string,
+  orderBy: string,
+  openImg: func,
 };

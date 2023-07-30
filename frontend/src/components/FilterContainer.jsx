@@ -3,6 +3,7 @@ import { getFiltersList } from '../services';
 import { Checkbox } from '@mui/material';
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { func, number } from 'prop-types';
 
 export const FilterContainer = ({ filtersChange, width }) => {
   const [filters, setFilters] = useState({});
@@ -58,3 +59,5 @@ export const FilterContainer = ({ filtersChange, width }) => {
     </div>
   );
 };
+
+FilterContainer.propTypes = { filtersChange: func, width: number };

@@ -11,4 +11,5 @@ export const ImageContainer = ({ imgUrl, height, width }) => (
 ImageContainer.propTypes = {
   imgUrl: string.isRequired,
   height: number,
+  width: number,
 };
